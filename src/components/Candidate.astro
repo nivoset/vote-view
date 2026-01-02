@@ -1,0 +1,15 @@
+---
+interface Props {
+	name: string;
+	id: string;
+	class?: string;
+}
+
+const { name, id, class: className = "" } = Astro.props;
+---
+
+<div class={`mb-6 p-4 border border-gray-200 rounded-lg bg-white ${className}`} data-candidate-id={id}>
+	<h3 class="text-xl font-semibold text-gray-900 mb-3">{name}</h3>
+	<slot />
+</div>
+

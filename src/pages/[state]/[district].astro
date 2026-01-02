@@ -1,0 +1,35 @@
+---
+import '~/styles/global.css';
+import BallotLayout from '~/components/BallotLayout.astro';
+import { ballotService } from '~/services/ballotService';
+import type { BallotData, District } from '~/types/ballot';
+
+export const prerender = false;
+
+const { state, district } = Astro.params;
+
+let selectedDistrict: District | null = null;
+let ballotData: BallotData | null = null;
+
+if (state && district) {
+	selectedDistrict = await ballotService.getDistrictBySlugs(state, district);
+
+	if (selectedDistrict) {
+		ballotData = await ballotService.getBallotData(selectedDistrict);
+	}
+}
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Vote View - {selectedDistrict ? selectedDistrict.name : 'Your Local Ballot Information'}</title>
+	</head>
+	<body class="min-h-screen bg-gray-100">
+		<BallotLayout selectedDistrict={selectedDistrict} ballotData={ballotData} />
+	</body>
+</html>
+

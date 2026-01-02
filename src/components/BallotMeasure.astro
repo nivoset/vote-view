@@ -1,0 +1,22 @@
+---
+interface Props {
+	id: string;
+	name: string;
+	description?: string;
+	text: string;
+	class?: string;
+}
+
+const { id, name, description, text, class: className = "" } = Astro.props;
+---
+
+<div class={`mb-6 p-4 border border-blue-200 rounded-lg bg-blue-50 ${className}`} data-measure-id={id}>
+	<h3 class="text-xl font-semibold text-gray-900 mb-2">{name}</h3>
+	{description && (
+		<p class="text-sm text-gray-600 mb-3 italic">{description}</p>
+	)}
+	<div class="text-gray-700 leading-relaxed">
+		{text}
+	</div>
+</div>
+

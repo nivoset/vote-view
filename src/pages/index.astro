@@ -1,5 +1,11 @@
 ---
 import '~/styles/global.css';
+import BallotLayout from '~/components/BallotLayout.astro';
+
+export const prerender = false;
+
+const selectedDistrict = null;
+const ballotData = null;
 ---
 
 <html lang="en">
@@ -8,9 +14,9 @@ import '~/styles/global.css';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Vote View - Your Local Ballot Information</title>
 	</head>
-	<body>
-		<h1 class="text-3xl font-bold underline text-red-500">Astro</h1>
+	<body class="min-h-screen bg-gray-100">
+		<BallotLayout selectedDistrict={selectedDistrict} ballotData={ballotData} />
 	</body>
 </html>

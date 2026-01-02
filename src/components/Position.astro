@@ -1,0 +1,43 @@
+---
+interface Props {
+	title: string;
+	id: string;
+	description?: string;
+	class?: string;
+}
+
+const { title, id, description, class: className = "" } = Astro.props;
+---
+
+<details class={`mb-6 border border-gray-300 rounded-lg bg-gray-50 ${className}`} data-position-id={id}>
+	<summary class="cursor-pointer p-4 hover:bg-gray-100 transition-colors list-none">
+		<div class="flex-1">
+			<h2 class="text-2xl font-bold text-gray-900 mb-1">{title}</h2>
+			{description && (
+				<p class="text-sm text-gray-600">{description}</p>
+			)}
+		</div>
+	</summary>
+	<div class="p-4 pt-0 border-t border-gray-200">
+		<slot />
+	</div>
+</details>
+
+<style>
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	summary::before {
+		content: "▶";
+		display: inline-block;
+		margin-right: 0.5rem;
+		color: rgb(107 114 128);
+		transition: transform 0.2s;
+	}
+
+	details[open] summary::before {
+		transform: rotate(90deg);
+	}
+</style>
+
